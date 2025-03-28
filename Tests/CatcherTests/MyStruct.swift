@@ -7,9 +7,9 @@
 
 import Foundation
 
-struct MyStruct {
+struct MyStruct: Sendable {
     var int: Int
-    enum Error: Swift.Error, Equatable {
+    enum Error: Swift.Error, Equatable, Sendable {
         case one, two, three, four
     }
     mutating func succeeding() throws -> Int {
