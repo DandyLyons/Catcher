@@ -8,9 +8,49 @@ This library provides strategies to run throwing functions without:
 
 ## Usage
 Catch and handle your errors simply and ergonomically by: 
-1. replacing the error with a reasonable value
-2. bundling the error and value in a `Result`
-3. simply handling the error in place
+1. replacing the error with an `Optional`
+2. replacing the error with a reasonable value
+3. bundling the error and value in a `Result`
+4. simply handling the error in place
+
+### Replacing the Error with an Optional
+The library comes with a new initializer for `Optional` which allows you to provide a closure
+to read and handle the error. Then it's easy to unwrap it, just like any other `Optional`. 
+```swift
+func throwing() throws -> Int { 1 }
+
+func printThrowing() {
+    guard let int = Optional(
+        for: try myStruct.succeeding(),
+        catcher: { error in
+            // handle the error here
+        }
+    ) else {
+// This is where we usually usually "handle" errors. 
+// Except we don't actually know what the error is because Swift doesn't 
+// give it to us here. 
+    }
+    print(int) // 1
+}
+```
+
+#### Why not use `try?`
+The obvious question is why not just use `try?`. Here, `try?` is definitely easier to read, write
+and understand. But there is just one problem: 
+
+```swift
+func printThrowing() {
+    guard let int = try? throwing() else {
+        // What's the error? 
+    }
+    print(int) // 1
+}
+```
+
+Where's the error? We don't have it because `try?` never gives it to us. You have never actually handled
+the error because you don't even know what it is. If you are confident that you can safely ignore 
+error then go ahead and use `try?`. It's a lot more convenient. But if you want to actually handle the 
+error, then consider using the new `Optional` initializer. 
 
 ### Replacing the Error with a Value
 
