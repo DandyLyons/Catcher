@@ -12,7 +12,14 @@ extension Result {
     /// to using this initializer: this initializer allows you to use one and only one `try` statement, meaning that
     /// if and when your function throws an error, you know exactly which function threw the error (because there
     /// is only one). Whereas when using `init(catching:)` when the result value is a `Result.failure`
-    /// you have no way of knowing which throwing function actually threw the error. 
+    /// you have no way of knowing which throwing function actually threw the error.
+    ///
+    /// In my tests, it seems that Swift is not able to infer the `Failure` type for the `Result` from the typed
+    /// `Error`. Unfortunately, this means you need to explicitly declare it like this:
+    ///
+    /// ```swift
+    /// let result = Result<Int, MyStruct.Error>(for: try myStruct.typedSucceeding())
+    /// ```
     public init(for op: @autoclosure () throws(Failure) -> Success) {
         self.init(catching: op)
     }
