@@ -7,7 +7,7 @@
 
 import Foundation
 
-
+@available(*, deprecated, message: "The value with `default` methods are deprecated because they never actually read the error. Use the other value methods intead.")
 public func value<Value>(
     `default` defaultValue: Value,
     for op: @autoclosure () throws -> Value
@@ -20,6 +20,7 @@ public func value<Value>(
 }
 
 // MARK: async
+@available(*, deprecated, message: "The value with `default` methods are deprecated because they never actually read the error. Use the other value methods intead.")
 public func asyncValue<Value>(
     `default` defaultValue: Value,
     for op: @autoclosure () async throws -> Value
