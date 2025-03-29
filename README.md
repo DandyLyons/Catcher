@@ -15,7 +15,7 @@ I'll summarize the main points here:
 1. `do` blocks with multiple `try` statements are problematic because: 
    1. When the function errors and jumps to the `catch` block, it is not clear which `try` statement caused the error.
    2. (Most of the time) the error is untyped, so you have to dynamically cast it to the correct type before you can read and handle it.
-   3. The [Trapped Scope Problem]() The result of the `try` statement is not available outside of the `do` block, so in practice you end up putting more work in the `do` block (which only exacerbates the problem).
+   3. The [Trapped Scope Problem](https://dandylyons.net/posts/post-32/swift-error-handling-the-solution/#the-trapped-scope-problem) The result of the `try` statement is not available outside of the `do` block, so in practice you end up putting more work in the `do` block (which only exacerbates the problem).
    4. Thrown errors abruptly exit the `do` block, which creates multiple code paths you have to consider.
 2. Swift actually has TWO type systems: 
    1. The type system for the function signature including the return type. 
